@@ -8,41 +8,48 @@ import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.TextView
 
-class MainActivity : AppCompatActivity() {
+class SignUpActivity : AppCompatActivity() {
 
-    lateinit var inputEmail:EditText
-    lateinit var inputPassword:EditText
-    lateinit var buttonSignIn:Button
-    lateinit var textViewResetPassword:TextView
-    lateinit var layoutSignUp:LinearLayout
+    lateinit var inputEmail: EditText
+    lateinit var inputPassword: EditText
+    lateinit var inputCPassword: EditText
+    lateinit var buttonSignUp: Button
+    lateinit var textViewResetPassword: TextView
+    lateinit var layoutHaveAccount: LinearLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        inputPassword=findViewById(R.id.inputPassword)
-        inputEmail=findViewById(R.id.inputEmail)
-        buttonSignIn=findViewById(R.id.buttonSignIn)
-        textViewResetPassword=findViewById(R.id.textViewResetPassword)
-        layoutSignUp=findViewById(R.id.layoutSignUp)
+        setContentView(R.layout.activity_sign_up)
 
-        buttonSignIn.setOnClickListener {
-            login()
+        inputPassword=findViewById(R.id.inputPassword)
+        inputCPassword=findViewById(R.id.inputCPassword)
+        inputEmail=findViewById(R.id.inputEmail)
+        buttonSignUp=findViewById(R.id.buttonSignUp)
+        textViewResetPassword=findViewById(R.id.textViewResetPassword)
+        layoutHaveAccount=findViewById(R.id.layoutSignUp)
+
+        buttonSignUp.setOnClickListener {
+            register()
         }
 
-        layoutSignUp.setOnClickListener{
+        layoutHaveAccount.setOnClickListener{
             startActivity(Intent(this,SignUpActivity::class.java))
             finish()
         }
-
     }
 
     private fun verifyEmail(email:String):Boolean{
         return email.contains(".") && email.contains("@")
     }
 
-    private fun login(){
+    private fun checkPasswordMatch(pass1:String,pass2:String):Boolean{
+        return pass1.equals(pass2)
+    }
+
+    private fun register(){
         val email=inputEmail.text.toString()
         val password=inputPassword.text.toString()
+        val cPassword=inputCPassword.text.toString()
         if(email.isEmpty()){
             inputEmail.requestFocus()
             inputEmail.error="Required"
@@ -52,9 +59,18 @@ class MainActivity : AppCompatActivity() {
         }else if(!verifyEmail(email)){
             inputEmail.requestFocus()
             inputEmail.error="Email invalid"
-        }else{
+        }else if(!checkPasswordMatch(password,cPassword)){
+            inputCPassword.requestFocus()
+            inputCPassword.error="Password do not match"
+        }
+        else{
             startActivity(Intent(this,NoteActivity::class.java))
             finish()
         }
+    }
+
+    override fun onBackPressed() {
+        startActivity(Intent(this,SignUpActivity::class.java))
+        finish()
     }
 }
