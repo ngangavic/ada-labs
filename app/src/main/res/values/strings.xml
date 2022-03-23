@@ -21,4 +21,6 @@
     <string name="menu_slideshow">Slideshow</string>
     <string name="reminder">Reminder</string>
     <string name="about">About</string>
+    <string name="note_app">My Notes</string>
+    <string name="short_about">My note app</string>
 </resources>
