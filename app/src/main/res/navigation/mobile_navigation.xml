@@ -12,14 +12,14 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/nav_gallery"
+        android:id="@+id/nav_about"
         android:name="com.ngangavictor.adalabs.ui.about.AboutFragment"
-        android:label="@string/menu_gallery"
+        android:label="@string/about"
         tools:layout="@layout/fragment_about" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
+        android:id="@+id/nav_reminder"
         android:name="com.ngangavictor.adalabs.ui.reminder.ReminderFragment"
-        android:label="@string/menu_slideshow"
+        android:label="@string/reminder"
         tools:layout="@layout/fragment_reminder" />
 </navigation>
