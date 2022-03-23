@@ -24,12 +24,15 @@ class HomeFragment : Fragment() {
         homeViewModel =
             ViewModelProvider(this).get(HomeViewModel::class.java)
 
-        textHome=container!!.findViewById(R.id.text_home)
+        return inflater.inflate(R.layout.fragment_home, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        textHome=view.findViewById(R.id.text_home)
 
         homeViewModel.text.observe(viewLifecycleOwner, Observer {
             textHome.text = it
         })
-        return inflater.inflate(R.layout.fragment_home, container, false)
     }
-
 }

@@ -23,14 +23,15 @@ class AboutFragment : Fragment() {
     ): View? {
         aboutViewModel =
             ViewModelProvider(this).get(AboutViewModel::class.java)
-
-        textGallery=container!!.findViewById(R.id.text_gallery)
-
-        val textView: TextView = textGallery
-        aboutViewModel.text.observe(viewLifecycleOwner, Observer {
-            textGallery.text = it
-        })
         return inflater.inflate(R.layout.fragment_about, container, false)
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        textGallery=view.findViewById(R.id.text_gallery)
+
+        aboutViewModel.text.observe(viewLifecycleOwner, Observer {
+            textGallery.text = it
+        })
+    }
 }

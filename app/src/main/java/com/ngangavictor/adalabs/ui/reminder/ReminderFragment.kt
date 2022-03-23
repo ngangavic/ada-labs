@@ -24,12 +24,16 @@ class ReminderFragment : Fragment() {
         reminderViewModel =
             ViewModelProvider(this).get(ReminderViewModel::class.java)
 
-        textSlideshow=container!!.findViewById(R.id.text_slideshow)
+        return inflater.inflate(R.layout.fragment_reminder, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        textSlideshow=view.findViewById(R.id.text_slideshow)
 
         reminderViewModel.text.observe(viewLifecycleOwner, Observer {
             textSlideshow.text = it
         })
-        return inflater.inflate(R.layout.fragment_reminder, container, false)
     }
-
 }

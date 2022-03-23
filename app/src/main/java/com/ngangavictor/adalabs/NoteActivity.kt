@@ -30,6 +30,7 @@ class NoteActivity : AppCompatActivity() {
         toolbar=findViewById(R.id.toolbar)
         fab=findViewById(R.id.fab)
         drawerLayout=findViewById(R.id.drawer_layout)
+        navView=findViewById(R.id.nav_view)
 
         setSupportActionBar(toolbar)
 
@@ -37,8 +38,8 @@ class NoteActivity : AppCompatActivity() {
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
         }
-        val drawerLayout: DrawerLayout = drawerLayout
-        val navView: NavigationView = navView
+//        val drawerLayout: DrawerLayout = drawerLayout
+//        val navView: NavigationView = navView
         val navController = findNavController(R.id.nav_host_fragment_content_note)
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
