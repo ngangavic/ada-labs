@@ -22,4 +22,9 @@
         android:name="com.ngangavictor.adalabs.ui.reminder.ReminderFragment"
         android:label="@string/reminder"
         tools:layout="@layout/fragment_reminder" />
+    <fragment
+        android:id="@+id/nav_add_note"
+        android:name="com.ngangavictor.adalabs.ui.add.AddNoteFragment"
+        android:label="@string/add_note"
+        tools:layout="@layout/fragment_add_note" />
 </navigation>
