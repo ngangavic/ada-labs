@@ -9,4 +9,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="purpleDark">#954cfb</color>
     <color name="purpleLight">#b88cff</color>
+    <color name="red">#FF0000</color>
 </resources>
