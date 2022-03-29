@@ -29,10 +29,10 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        textHome=view.findViewById(R.id.text_home)
+//        textHome=view.findViewById(R.id.text_home)
 
         homeViewModel.text.observe(viewLifecycleOwner, Observer {
-            textHome.text = it
+//            textHome.text = it
         })
     }
 }
