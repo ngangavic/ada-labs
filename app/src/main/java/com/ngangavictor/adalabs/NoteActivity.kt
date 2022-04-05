@@ -2,9 +2,12 @@ package com.ngangavictor.adalabs
 
 import android.os.Bundle
 import android.view.Menu
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.navigation.NavController
+import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
@@ -49,6 +52,23 @@ class NoteActivity : AppCompatActivity() {
         fab.setOnClickListener { view ->
             navController.navigate(R.id.nav_add_note)
         }
+        navController.addOnDestinationChangedListener(object :NavController.OnDestinationChangedListener{
+            override fun onDestinationChanged(
+                controller: NavController,
+                destination: NavDestination,
+                arguments: Bundle?
+            ) {
+                when(destination.id){
+                    R.id.nav_add_note->{
+                        fab.visibility=View.GONE
+                    }
+                    else->{
+                        fab.visibility=View.VISIBLE
+                    }
+                }
+            }
+
+        })
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
