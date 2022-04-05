@@ -1,35 +1,32 @@
 package com.ngangavictor.adalabs
 
 import android.content.Intent
+import android.database.DatabaseUtils
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
-import android.widget.LinearLayout
-import android.widget.TextView
+import android.widget.*
+import androidx.databinding.DataBindingUtil
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
+import com.ngangavictor.adalabs.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var inputEmail:EditText
-    lateinit var inputPassword:EditText
-    lateinit var buttonSignIn:Button
-    lateinit var textViewResetPassword:TextView
-    lateinit var layoutSignUp:LinearLayout
+    private lateinit var auth: FirebaseAuth
+
+    lateinit var binding:ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        inputPassword=findViewById(R.id.inputPassword)
-        inputEmail=findViewById(R.id.inputEmail)
-        buttonSignIn=findViewById(R.id.buttonSignIn)
-        textViewResetPassword=findViewById(R.id.textViewResetPassword)
-        layoutSignUp=findViewById(R.id.layoutSignUp)
+        binding=DataBindingUtil.setContentView(this,R.layout.activity_main)
+        auth = Firebase.auth
 
-        buttonSignIn.setOnClickListener {
+        binding.buttonSignIn.setOnClickListener {
             login()
         }
 
-        layoutSignUp.setOnClickListener{
+        binding.layoutSignUp.setOnClickListener{
             startActivity(Intent(this,SignUpActivity::class.java))
             finish()
         }
@@ -41,18 +38,36 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun login(){
-        val email=inputEmail.text.toString()
-        val password=inputPassword.text.toString()
+        val email=binding.inputEmail.text.toString()
+        val password=binding.inputPassword.text.toString()
         if(email.isEmpty()){
-            inputEmail.requestFocus()
-            inputEmail.error="Required"
+            binding.inputEmail.requestFocus()
+            binding.inputEmail.error="Required"
         }else if (password.isEmpty()){
-            inputPassword.requestFocus()
-            inputPassword.error="Required"
+            binding.inputPassword.requestFocus()
+            binding.inputPassword.error="Required"
         }else if(!verifyEmail(email)){
-            inputEmail.requestFocus()
-            inputEmail.error="Email invalid"
+            binding.inputEmail.requestFocus()
+            binding.inputEmail.error="Email invalid"
         }else{
+            auth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this) { task ->
+                    if (task.isSuccessful) {
+                        startActivity(Intent(this,NoteActivity::class.java))
+                        finish()
+                    } else {
+                        Toast.makeText(baseContext, "Authentication failed.",
+                            Toast.LENGTH_SHORT).show()
+                    }
+                }
+        }
+    }
+
+    public override fun onStart() {
+        super.onStart()
+        // Check if user is signed in (non-null) and update UI accordingly.
+        val currentUser = auth.currentUser
+        if(currentUser != null){
             startActivity(Intent(this,NoteActivity::class.java))
             finish()
         }
